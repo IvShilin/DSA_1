@@ -6,7 +6,7 @@ public class CircularBoundedQueueImplementation implements CircularBoundedQueue 
     int[] queue;
     int capacity;
 
-    public void main(int capacity) {
+    public void CircularBoundedQueueImplementation(int capacity) {
         front = -1;
         rear = -1;
         queue = new int[capacity];
