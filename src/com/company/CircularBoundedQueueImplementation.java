@@ -44,7 +44,8 @@ public class CircularBoundedQueueImplementation implements CircularBoundedQueue 
 
     @Override
     public void flush() {
-
+        front = -1;
+        rear = -1;
     }
 
     @Override
