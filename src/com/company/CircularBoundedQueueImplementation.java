@@ -1,10 +1,10 @@
 package com.company;
 
 public class CircularBoundedQueueImplementation implements CircularBoundedQueue {
-    int front;
-    int rear;
-    int[] queue;
-    int capacity;
+    private int front;
+    private int rear;
+    private int [] queue;
+    private int capacity;
 
     public CircularBoundedQueueImplementation(int capacity) {
         front = -1;
@@ -69,12 +69,12 @@ public class CircularBoundedQueueImplementation implements CircularBoundedQueue 
 
     @Override
     public int size() {
-        return 0;
+        return queue.length;
     }
 
     @Override
     public int capacity() {
-        return 0;
+        return capacity;
     }
 
 }
