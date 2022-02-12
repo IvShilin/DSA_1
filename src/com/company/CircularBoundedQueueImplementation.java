@@ -1,22 +1,27 @@
 package com.company;
 
+public class CircularBoundedQueueImplementation implements CircularBoundedQueue {
+    int front;
+    int rear;
+    int[] queue;
+    int capacity;
 
-public class Main implements CircularBoundedQueue {
-    public static void main(int capacity) {
-        int front = -1;
-        int rear = -1;
-        int[] queue = new int[capacity];
+    public void main(int capacity) {
+        front = -1;
+        rear = -1;
+        queue = new int[capacity];
     }
 
+    //Исправить несоотвествие типов
     @Override
-    public void offer(Main item) {
+    public void offer(CircularBoundedQueueImplementation item) {
         queue[rear] = item;
         rear++;
 
     }
 
     @Override
-    public Main poll() {
+    public CircularBoundedQueueImplementation poll() {
         for (int i = 0; i < rear - 1; i++) {
             queue[i] = queue[i + 1];
         }
@@ -30,7 +35,7 @@ public class Main implements CircularBoundedQueue {
 
 
     @Override
-    public Main peek() {
+    public CircularBoundedQueueImplementation peek() {
         if (front != rear) {
             System.out.printf("\nFront Element of the queue: %d", queue[front]);
         }
