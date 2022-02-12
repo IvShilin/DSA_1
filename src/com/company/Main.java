@@ -50,6 +50,7 @@ public class Main implements CircularBoundedQueue {
         return false;
     }
 
+
     @Override
     public boolean isFull() {
         if (capacity == rear) {
