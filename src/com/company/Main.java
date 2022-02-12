@@ -5,6 +5,7 @@ class CircularBoundedQueue {
     private static int capacity;
     private static int[] queue;
 
+
     CircularBoundedQueue(int size) {
         front = 0;
         rear = 0;
