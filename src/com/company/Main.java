@@ -28,6 +28,7 @@ public class Main implements CircularBoundedQueue {
         return null;
     }
 
+
     @Override
     public Main peek() {
         if (front != rear) {
