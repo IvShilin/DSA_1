@@ -1,7 +1,6 @@
 package com.company;
 
-public interface CircularBoundedQueue{
-
+public interface CircularBoundedQueueI<T> {
 
     void offer(CircularBoundedQueueImplementation value); // insert an element to the rear of the queue
     // overwrite the oldest elements

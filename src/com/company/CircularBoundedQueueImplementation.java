@@ -1,11 +1,11 @@
 package com.company;
 
-public class CircularBoundedQueueImplementation implements CircularBoundedQueue {
+public class CircularBoundedQueueImplementation<T> implements CircularBoundedQueueI<T> {
     private int front;
     private int rear;
-    private final int [] queue;
+    private int size;
+    private final Object[] queue;
     private final int capacity;
-    private int newElem;
 
     public CircularBoundedQueueImplementation(int capacity) {
         front = -1;
@@ -14,11 +14,20 @@ public class CircularBoundedQueueImplementation implements CircularBoundedQueue 
         queue = new int[capacity];
     }
 
-    // TODO исправить работу метода
+    /**
+     * the function insert an element to the rear of the queue, overwrite the oldest elements when the queue is full
+     * @param value is a value of element that we need to insert to the queue
+     */
     @Override
-    public void offer(CircularBoundedQueueImplementation item) {
-        queue[rear] = item.newElem;
-        rear++;
+    public void offer(T value) {
+        if (isFull()) {
+            queue[rear] = value;
+            front = (front + 1) % capacity;
+        } else {
+            size += 1;
+        }
+        queue[rear] = value;
+        rear = (rear + 1) % capacity;
 
     }
 
@@ -33,7 +42,11 @@ public class CircularBoundedQueueImplementation implements CircularBoundedQueue 
         return null;
     }
 
-
+    /**
+     * function look at the element at the front of the queue
+     * @return front element
+     * @throws IllegalStateException used to indicate that queue is empty, we can't use this function
+     */
     @Override
     public CircularBoundedQueueImplementation peek() {
         if (front != rear) {
@@ -44,8 +57,9 @@ public class CircularBoundedQueueImplementation implements CircularBoundedQueue 
 
     @Override
     public void flush() {
-        front = -1;
-        rear = -1;
+        size = 0;
+        front = 0;
+        rear = 0;
     }
 
     @Override
@@ -69,12 +83,11 @@ public class CircularBoundedQueueImplementation implements CircularBoundedQueue 
 
     @Override
     public int size() {
-        return queue.length;
+        return size;
     }
 
     @Override
     public int capacity() {
         return capacity;
     }
-
 }
