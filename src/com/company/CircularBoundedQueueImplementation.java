@@ -14,7 +14,7 @@ public class CircularBoundedQueueImplementation implements CircularBoundedQueue 
         queue = new int[capacity];
     }
 
-    //Исправить несоотвествие типов
+    // TODO исправить работу метода
     @Override
     public void offer(CircularBoundedQueueImplementation item) {
         queue[rear] = item.newElem;
