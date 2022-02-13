@@ -7,11 +7,16 @@ public class CircularBoundedQueueImplementation<T> implements CircularBoundedQue
     private final Object[] queue;
     private final int capacity;
 
-    public CircularBoundedQueueImplementation(int capacity) {
-        front = -1;
-        rear = -1;
+    /**
+     * constructor of the circular queue
+     * @param capacity is maximum capacity of the queue
+     */
+    CircularBoundedQueueImplementation(int capacity) {
+        front = 0;
+        rear = 0;
+        size = 0;
         this.capacity = capacity;
-        queue = new int[capacity];
+        queue = new Object[capacity];
     }
 
     /**
@@ -31,15 +36,19 @@ public class CircularBoundedQueueImplementation<T> implements CircularBoundedQue
 
     }
 
+    /**
+     * the function remove an element from the front of the queue
+     * @return remote element
+     */
     @Override
-    public CircularBoundedQueueImplementation poll() {
-        if (rear - 1 >= 0) System.arraycopy(queue, 1, queue, 0, rear - 1);
-
-        if (rear < capacity) {
-            queue[rear] = 0;
-            rear--;
+    public T poll() throws IllegalStateException{
+        if (isEmpty()){
+            throw new IllegalStateException(" ");
         }
-        return null;
+        Object element = queue[front];
+        front = (front + 1) % capacity;
+        size=size-1;
+        return (T) element;
     }
 
     /**
@@ -48,13 +57,15 @@ public class CircularBoundedQueueImplementation<T> implements CircularBoundedQue
      * @throws IllegalStateException used to indicate that queue is empty, we can't use this function
      */
     @Override
-    public CircularBoundedQueueImplementation peek() {
-        if (front != rear) {
-            System.out.printf("\nFront Element of the queue: %d", queue[front]);
-        }
-        return null;
+    public T peek() throws IllegalStateException {
+        if (isEmpty())
+           throw new IllegalStateException(" ");
+        return (T) queue[front];
     }
 
+    /**
+     * the function remove all elements from the queue
+     */
     @Override
     public void flush() {
         size = 0;
@@ -62,30 +73,37 @@ public class CircularBoundedQueueImplementation<T> implements CircularBoundedQue
         rear = 0;
     }
 
+    /**
+     * the function checks if queue is empty
+     * @return true if the queue is empty otherwise returns true
+     */
     @Override
     public boolean isEmpty() {
-        if (front == rear) {
-            System.out.print("Queue is Empty");
-            return true;
-        }
-        return false;
+        return size == 0;
     }
 
-
+    /**
+     * the function checks if queue is full
+     * @return true if the queue is full otherwise returns false
+     */
     @Override
     public boolean isFull() {
-        if (capacity == rear) {
-            System.out.print("Circular Bounded Queue is full");
-            return true;
-        }
-        return false;
+        return size == capacity;
     }
 
+    /**
+     * size is number of elements
+     * @return size
+     */
     @Override
     public int size() {
         return size;
     }
 
+    /**
+     * capacity is maximum capacity of the queue
+     * @return capacity
+     */
     @Override
     public int capacity() {
         return capacity;
