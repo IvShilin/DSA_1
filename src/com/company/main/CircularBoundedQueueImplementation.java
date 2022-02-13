@@ -1,30 +1,29 @@
-package com.company;
+package com.company.main;
 
 public class CircularBoundedQueueImplementation implements CircularBoundedQueue {
     private int front;
     private int rear;
-    private int [] queue;
-    private int capacity;
+    private final int[] queue;
+    private int newElement;
+    private final int capacity;
 
     public CircularBoundedQueueImplementation(int capacity) {
         front = -1;
         rear = -1;
+        this.capacity = capacity;
         queue = new int[capacity];
     }
 
     //Исправить несоотвествие типов
     @Override
-    public void offer(int item) {
-        queue[rear] = item;
+    public void offer(CircularBoundedQueueImplementation item) {
+        queue[rear] = item.newElement;
         rear++;
-
     }
 
     @Override
     public CircularBoundedQueueImplementation poll() {
-        for (int i = 0; i < rear - 1; i++) {
-            queue[i] = queue[i + 1];
-        }
+        if (rear - 1 >= 0) System.arraycopy(queue, 1, queue, 0, rear - 1);
 
         if (rear < capacity) {
             queue[rear] = 0;
@@ -36,9 +35,7 @@ public class CircularBoundedQueueImplementation implements CircularBoundedQueue 
 
     @Override
     public CircularBoundedQueueImplementation peek() {
-        if (front != rear) {
-            System.out.printf("\nFront Element of the queue: %d", queue[front]);
-        }
+        if (front != rear) System.out.printf("\nFront Element of the queue: %d", queue[front]);
         return null;
     }
 
@@ -51,7 +48,7 @@ public class CircularBoundedQueueImplementation implements CircularBoundedQueue 
     @Override
     public boolean isEmpty() {
         if (front == rear) {
-            System.out.printf("Queue is Empty");
+            System.out.print("Queue is Empty");
             return true;
         }
         return false;
@@ -61,7 +58,7 @@ public class CircularBoundedQueueImplementation implements CircularBoundedQueue 
     @Override
     public boolean isFull() {
         if (capacity == rear) {
-            System.out.printf("Circular Bounded Queue is full");
+            System.out.print("Circular Bounded Queue is full");
             return true;
         }
         return false;
